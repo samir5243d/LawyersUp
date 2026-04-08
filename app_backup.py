@@ -8,7 +8,6 @@ import io
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from dotenv import load_dotenv
 from datetime import datetime
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
@@ -172,7 +171,6 @@ def get_tone_for_category(category: str) -> str:
 # LOAD ENVIRONMENT VARIABLES
 # ═══════════════════════════════════════════════════════════════
 
-load_dotenv()
 
 def get_secret(key):
     """Retrieve secret from Streamlit secrets first, then fallback to os.getenv for local dev."""
