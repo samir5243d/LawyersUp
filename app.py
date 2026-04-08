@@ -101,13 +101,11 @@ if "llm_response" in st.session_state and st.session_state.llm_response:
             recipient_email, subject, send_email_clicked = render_email_sender_form()
             
             if send_email_clicked:
-                if not EMAIL_USER or not EMAIL_PASS:
-                    st.error("Sender credentials (EMAIL_USER, EMAIL_PASS) not found in .env file. Please configure them.")
-                elif not recipient_email.strip():
+                if not recipient_email.strip():
                     st.warning("Please provide a recipient email address.")
                 else:
                     with st.spinner("Sending email..."):
-                        success, error_msg = send_email(EMAIL_USER, EMAIL_PASS, recipient_email, subject, st.session_state.complaint_draft)
+                        success, error_msg = send_email(recipient_email, subject, st.session_state.complaint_draft)
                         if success:
                             st.success("Email sent successfully! ✅")
                         else:
