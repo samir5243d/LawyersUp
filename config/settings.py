@@ -1,12 +1,20 @@
 import os
+import streamlit as st
 from dotenv import load_dotenv
 
-# Load environment variables
+# Load environment variables (for local development)
 load_dotenv()
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-EMAIL_USER = os.getenv("EMAIL_USER")
-EMAIL_PASS = os.getenv("EMAIL_PASS")
+def get_secret(key):
+    """Retrieve secret from Streamlit secrets first, then fallback to os.getenv for local dev."""
+    try:
+        return st.secrets[key]
+    except (KeyError, FileNotFoundError):
+        return os.getenv(key)
+
+GROQ_API_KEY = get_secret("GROQ_API_KEY")
+EMAIL_USER = get_secret("EMAIL_USER")
+EMAIL_PASS = get_secret("EMAIL_PASS")
 
 # ═══════════════════════════════════════════════════════════════
 # CATEGORY → AUTHORITY MAPPING (Dynamic)
